@@ -19,7 +19,6 @@ const script = document.currentScript;
 function setup() {
    var canvas = createCanvas(400, 400);
    canvas.parent(script.parentElement);
-   noStroke();
    fill(0);
 
    noise = new OctaveNoise(3, 4, 6);
@@ -77,7 +76,7 @@ function drawFire(x, y, data) {
    const BLUE = NOISE_VAL * map(y, -1, 1, 0, 50);
    const ALPHA = NOISE_VAL * map(y, -1, 1, 0, 500)
    
-   fill(RED, GREEN, BLUE, ALPHA);
+   stroke(RED, GREEN, BLUE, ALPHA);
    
-   circle(x, y, SQUARE_SIZE);
+   line(-SQUARE_SIZE / 2, -SQUARE_SIZE / 2, SQUARE_SIZE, SQUARE_SIZE);
 }
