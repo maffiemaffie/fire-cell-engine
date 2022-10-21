@@ -32,11 +32,13 @@ function setup() {
    const TIME_SCALE = new Slider('Time Scale', 0, 0.05, 0.005, 0.025, 'TIME_SCALE');
    const FIRE_SIZE = new Slider('Fire Size', 0.5, 2, 0.125, 1.125, 'FIRE_SIZE');
    const FIRE_SPEED = new Slider('Fire Speed', 0, 0.1, 0.01, 0.05, 'FIRE_SPEED');
+   const ALTERNATE_DIRECTION = new Slider('Alternate Direction', 0, 1, 0.05, 0.2, 'ALTERNATE_DIRECTION');
    
    model.addControl(NOISE_SCALE);
    model.addControl(TIME_SCALE);
    model.addControl(FIRE_SIZE);
    model.addControl(FIRE_SPEED);
+   model.addControl(ALTERNATE_DIRECTION);
 
    model.setDraw(drawFire);
 }
@@ -57,6 +59,7 @@ function drawFire(x, y, data) {
    const FIRE_SPEED = data.FIRE_SPEED;
    const NOISE_SCALE = data.NOISE_SCALE;
    const TIME_SCALE = data.TIME_SCALE;
+   const DIRECTION_PERCENTAGE = data.ALTERNATE_DIRECTION;
       
    // get noise from x and y position; fire rises
    const NOISE_VAL = noise.get(x * NOISE_SCALE - 500, (y + FIRE_SPEED * frameCount) * NOISE_SCALE, frameCount * TIME_SCALE);
@@ -78,5 +81,7 @@ function drawFire(x, y, data) {
    
    stroke(RED, GREEN, BLUE, ALPHA);
    
-   line(-SQUARE_SIZE / 2, -SQUARE_SIZE / 2, SQUARE_SIZE, SQUARE_SIZE);
+   if (Math.random() > DIRECTION_PERCENTAGE) line(-SQUARE_SIZE, -SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+   else line(SQUARE_SIZE, -SQUARE_SIZE, -SQUARE_SIZE, SQUARE_SIZE);
+   
 }
