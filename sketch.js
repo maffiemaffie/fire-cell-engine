@@ -9,7 +9,7 @@
 /* Global variables */
 
 let model;
-let noise;
+let octaveNoise;
 
 const script = document.currentScript;
 
@@ -21,7 +21,7 @@ function setup() {
    canvas.parent(script.parentElement);
    fill(0);
 
-   noise = new OctaveNoise(3, 4, 6);
+   octaveNoise = new OctaveNoise(3, 4, 6);
    model = new Model(5, 40, 5, 25);
 
    // const NOISE_SCALE = new Slider('Noise Scale', 0.5, 4, 0.1, 2.5, 'NOISE_SCALE');
@@ -61,8 +61,8 @@ function drawFire(x, y, data) {
    const TIME_SCALE = data.TIME_SCALE;
    const DIRECTION_PERCENTAGE = data.ALTERNATE_DIRECTION;
       
-   // get noise from x and y position; fire rises
-   const NOISE_VAL = noise.get(x * NOISE_SCALE - 500, (y + FIRE_SPEED * frameCount) * NOISE_SCALE, frameCount * TIME_SCALE);
+   // get octaveNoise from x and y position; fire rises
+   const NOISE_VAL = octaveNoise.get(x * NOISE_SCALE - 500, (y + FIRE_SPEED * frameCount) * NOISE_SCALE, frameCount * TIME_SCALE);
 
    // squares shrink as they rise
    const HEIGHT_FACTOR = max(map(y, -1, 1, 0, 5), 0);
@@ -81,7 +81,7 @@ function drawFire(x, y, data) {
    
    stroke(RED, GREEN, BLUE, ALPHA);
    
-   if (Math.random() > DIRECTION_PERCENTAGE) line(-SQUARE_SIZE, -SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+   if (noise(x, y) > DIRECTION_PERCENTAGE) line(-SQUARE_SIZE, -SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
    else line(SQUARE_SIZE, -SQUARE_SIZE, -SQUARE_SIZE, SQUARE_SIZE);
    
 }
