@@ -79,5 +79,5 @@ function drawFire(x, y, data) {
    
    fill(RED, GREEN, BLUE, ALPHA);
    
-   square(x, y, SQUARE_SIZE);
+   circle(x, y, SQUARE_SIZE);
 }
