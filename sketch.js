@@ -51,6 +51,8 @@ function draw() {
    blendMode(ADD);
 
    model.draw();
+   
+   console.log(frameRate());
 }
 
 function drawFire(x, y, data) {
